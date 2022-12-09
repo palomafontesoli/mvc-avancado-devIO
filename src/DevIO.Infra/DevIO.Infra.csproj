@@ -46,9 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Context\MeuDbContext.cs" />
-    <Compile Include="Data\Mapping\EnderecoConfig.cs" />
-    <Compile Include="Data\Mapping\FornecedorConfig.cs" />
-    <Compile Include="Data\Mapping\ProdutoConfig.cs" />
+    <Compile Include="Data\Mappings\EnderecoConfig.cs" />
+    <Compile Include="Data\Mappings\FornecedorConfig.cs" />
+    <Compile Include="Data\Mappings\ProdutoConfig.cs" />
     <Compile Include="Data\Migrations\Configuration.cs" />
     <Compile Include="Data\Repository\EnderecoRepository.cs" />
     <Compile Include="Data\Repository\FornecedorRepository.cs" />

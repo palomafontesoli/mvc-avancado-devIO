@@ -1,9 +1,9 @@
-﻿using DevIO.Business.Models.Fornecedores;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
+using DevIO.Business.Models.Fornecedores;
 
-namespace DevIO.Infra.Data.Mapping
+namespace DevIO.Infra.Data.Mappings
 {
     public class FornecedorConfig : EntityTypeConfiguration<Fornecedor>
     {
@@ -18,9 +18,8 @@ namespace DevIO.Infra.Data.Mapping
             Property(f => f.Documento)
                 .IsRequired()
                 .HasMaxLength(14)
-                .HasColumnAnnotation("IX_Document",
-                new IndexAnnotation(new IndexAttribute { IsUnique = true }))
-                .IsFixedLength();
+                .HasColumnAnnotation("IX_Documento",
+                    new IndexAnnotation(new IndexAttribute {IsUnique = true}));
 
             HasRequired(f => f.Endereco)
                 .WithRequiredPrincipal(e => e.Fornecedor);

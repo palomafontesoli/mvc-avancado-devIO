@@ -1,12 +1,12 @@
-﻿using DevIO.Business.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DevIO.Business.Core.Models;
 
 namespace DevIO.Business.Core.Data
 {
-        public interface IRepository<TEntity> : IDisposable where TEntity : Entity
+    public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {
         Task Adicionar(TEntity entity);
         Task<TEntity> ObterPorId(Guid id);

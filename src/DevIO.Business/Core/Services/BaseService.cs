@@ -5,9 +5,8 @@ using FluentValidation.Results;
 
 namespace DevIO.Business.Core.Services
 {
-    public abstract class BaseService 
+    public abstract class BaseService
     {
-
         private readonly INotificador _notificador;
 
         protected BaseService(INotificador notificador)
@@ -28,13 +27,13 @@ namespace DevIO.Business.Core.Services
             _notificador.Handle(new Notificacao(mensagem));
         }
 
-        protected bool ExecutarValidacao<TV,TE>(TV validacao, TE entidade) where TV: AbstractValidator<TE> where TE : Entity
+        protected bool ExecutarValidacao<TV, TE>(TV validacao, TE entidade) where TV: AbstractValidator<TE> where TE : Entity
         {
             var validator = validacao.Validate(entidade);
 
             if (validator.IsValid) return true;
 
-            Notificar(validator); 
+            Notificar(validator);
 
             return false;
         }

@@ -1,9 +1,9 @@
-﻿using DevIO.Business.Core.Notificacoes;
-using DevIO.Business.Core.Services;
-using DevIO.Business.Models.Fornecedores.Validations;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DevIO.Business.Core.Notificacoes;
+using DevIO.Business.Core.Services;
+using DevIO.Business.Models.Fornecedores.Validations;
 
 namespace DevIO.Business.Models.Fornecedores.Services
 {
@@ -11,8 +11,10 @@ namespace DevIO.Business.Models.Fornecedores.Services
     {
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IEnderecoRepository _enderecoRepository;
-        
-        public FornecedorService(IFornecedorRepository fornecedorRepository, IEnderecoRepository enderecoRepository, INotificador notificador) : base(notificador)
+
+        public FornecedorService(IFornecedorRepository fornecedorRepository, 
+                                 IEnderecoRepository enderecoRepository,
+                                 INotificador notificador) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
             _enderecoRepository = enderecoRepository;
@@ -20,8 +22,12 @@ namespace DevIO.Business.Models.Fornecedores.Services
 
         public async Task Adicionar(Fornecedor fornecedor)
         {
+            // Limitações do EF 6 fora da convenção
+            fornecedor.Endereco.Id = fornecedor.Id;
+            fornecedor.Endereco.Fornecedor = fornecedor;
+
             if (!ExecutarValidacao(new FornecedorValidation(), fornecedor)
-               || !ExecutarValidacao(new EnderecoValidation(), fornecedor.Endereco)) return;
+                || !ExecutarValidacao(new EnderecoValidation(), fornecedor.Endereco)) return;
 
             if (await FornecedorExistente(fornecedor)) return;
 
@@ -66,9 +72,9 @@ namespace DevIO.Business.Models.Fornecedores.Services
         {
             var fornecedorAtual = await _fornecedorRepository.Buscar(f => f.Documento == fornecedor.Documento && f.Id != fornecedor.Id);
 
-            if (fornecedorAtual.Any()) return false;
+            if (!fornecedorAtual.Any()) return false;
 
-            Notificar("Já existe um fornecedor com este documento informado.");
+            Notificar("Já existe um fornecedor com este documento infomado.");
             return true;
         }
 

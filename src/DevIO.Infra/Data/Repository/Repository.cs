@@ -6,12 +6,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DevIO.Infra.Data.Context;
 
 namespace DevIO.Infra.Data.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-
         protected readonly MeuDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
@@ -36,7 +36,6 @@ namespace DevIO.Infra.Data.Repository
             return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
-
         public virtual async Task Adicionar(TEntity entity)
         {
             DbSet.Add(entity);
@@ -51,7 +50,7 @@ namespace DevIO.Infra.Data.Repository
 
         public virtual async Task Remover(Guid id)
         {
-            Db.Entry(new TEntity {Id = id}).State = EntityState.Deleted;
+            Db.Entry(new TEntity{Id = id}).State = EntityState.Deleted;
             await SaveChanges();
         }
 

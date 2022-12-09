@@ -1,9 +1,9 @@
-﻿using DevIO.Business.Models.Produtos;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
+using DevIO.Business.Models.Produtos;
 
-namespace DevIO.Infra.Data.Mapping
+namespace DevIO.Infra.Data.Mappings
 {
-    class ProdutoConfig : EntityTypeConfiguration<Produto>
+    public class ProdutoConfig : EntityTypeConfiguration<Produto>
     {
         public ProdutoConfig()
         {
@@ -22,8 +22,8 @@ namespace DevIO.Infra.Data.Mapping
                 .HasMaxLength(100);
 
             HasRequired(p => p.Fornecedor)
-                .WithMany(f => f.Produtos)
-                .HasForeignKey(p => p.FornecedorId);
+                .WithMany(f=>f.Produtos)
+                .HasForeignKey(p=>p.FornecedorId);
 
             ToTable("Produtos");
         }

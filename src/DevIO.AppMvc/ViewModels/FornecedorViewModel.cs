@@ -1,6 +1,4 @@
-﻿
-using DevIO.Business.Models.Fornecedores;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +24,7 @@ namespace DevIO.AppMvc.ViewModels
         public string Documento { get; set; }
 
         [DisplayName("Tipo")]
-        public TipoFornecedor TipoFornecedor { get; set; }
+        public int TipoFornecedor { get; set; }
 
         public EnderecoViewModel Endereco { get; set; }
 
